@@ -1,0 +1,65 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Choose Registration Type - QuantumStay AI{% endblock %}
+
+{% block content %}
+<section class="auth-section">
+    <div class="neural-bg"></div>
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-md-8">
+                <div class="auth-selection-box" data-aos="fade-up">
+                    <h2 class="text-center mb-4">Create Your Account</h2>
+                    <p class="text-center text-muted mb-5">Choose how you want to join QuantumStay AI</p>
+                    
+                    <div class="row">
+                        <!-- Guest Registration Option -->
+                        <div class="col-md-6 mb-4">
+                            <div class="login-option guest-option" onclick="window.location='{% url 'User:guest_register' %}'">
+                                <div class="option-icon">
+                                    <i class="fas fa-user-plus"></i>
+                                </div>
+                                <h3>Guest Account</h3>
+                                <p>For travelers and guests</p>
+                                <div class="hover-info">
+                                    <ul>
+                                        <li><i class="fas fa-check"></i> Easy Booking</li>
+                                        <li><i class="fas fa-check"></i> Personalized Experience</li>
+                                        <li><i class="fas fa-check"></i> AI Travel Assistant</li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- Resort Owner Registration Option -->
+                        <div class="col-md-6 mb-4">
+                            <div class="login-option resort-option" onclick="window.location='{% url 'User:resort_register' %}'">
+                                <div class="option-icon">
+                                    <i class="fas fa-hotel"></i>
+                                </div>
+                                <h3>Resort Owner Account</h3>
+                                <p>For property managers</p>
+                                <div class="hover-info">
+                                    <ul>
+                                        <li><i class="fas fa-check"></i> List Properties</li>
+                                        <li><i class="fas fa-check"></i> AI-Powered Insights</li>
+                                        <li><i class="fas fa-check"></i> Smart Management</li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="text-center mt-4">
+                        <p>Already have an account?</p>
+                        <a href="{% url 'User:login_select' %}" class="btn btn-outline-quantum">
+                            Login Here
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %} 

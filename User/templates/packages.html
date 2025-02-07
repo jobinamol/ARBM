@@ -1,0 +1,91 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Packages{% endblock %}
+
+{% block content %}
+<section class="page-header">
+    <div class="container">
+        <h1>Our Packages</h1>
+        <nav aria-label="breadcrumb">
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item"><a href="{% url 'User:index' %}">Home</a></li>
+                <li class="breadcrumb-item active">Packages</li>
+            </ol>
+        </nav>
+    </div>
+</section>
+
+<section class="packages-section">
+    <div class="container">
+        <!-- Filters -->
+        <div class="filters-wrapper mb-4">
+            <div class="row">
+                <div class="col-md-3">
+                    <select class="form-control">
+                        <option>Package Type</option>
+                        <option>Daycation</option>
+                        <option>Staycation</option>
+                    </select>
+                </div>
+                <div class="col-md-3">
+                    <select class="form-control">
+                        <option>Price Range</option>
+                        <option>$0 - $100</option>
+                        <option>$100 - $300</option>
+                        <option>$300+</option>
+                    </select>
+                </div>
+                <div class="col-md-3">
+                    <select class="form-control">
+                        <option>Duration</option>
+                        <option>1 Day</option>
+                        <option>2-3 Days</option>
+                        <option>4+ Days</option>
+                    </select>
+                </div>
+                <div class="col-md-3">
+                    <button class="btn btn-primary btn-block">Apply Filters</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Package Cards -->
+        <div class="row">
+            {% for package in packages %}
+            <div class="col-md-4 mb-4">
+                <div class="package-card">
+                    <div class="package-thumb">
+                        <img src="{{ package.image.url }}" alt="{{ package.name }}">
+                        <div class="package-type">{{ package.type }}</div>
+                        <div class="package-rating">
+                            <i class="fa fa-star"></i> {{ package.rating }}
+                        </div>
+                    </div>
+                    <div class="package-content">
+                        <h3>{{ package.name }}</h3>
+                        <div class="package-meta">
+                            <span><i class="fa fa-clock-o"></i> {{ package.duration }}</span>
+                            <span><i class="fa fa-user"></i> {{ package.capacity }}</span>
+                        </div>
+                        <div class="package-features">
+                            {% for feature in package.features.all|slice:":3" %}
+                            <span><i class="fa fa-check"></i> {{ feature }}</span>
+                            {% endfor %}
+                        </div>
+                        <div class="package-price">
+                            <span class="price">${{ package.price }}</span>
+                            <span class="per-night">per night</span>
+                        </div>
+                        <a href="{% url 'User:package_detail' package.id %}" class="btn btn-primary btn-block">View Details</a>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+
+        <!-- Pagination -->
+        {% include 'partials/pagination.html' %}
+    </div>
+</section>
+{% endblock %} 

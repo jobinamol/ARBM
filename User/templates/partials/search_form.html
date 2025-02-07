@@ -1,0 +1,50 @@
+{% load static %}
+<section class="search-section">
+    <div class="container">
+        <div class="search-box">
+            <form class="search-form" method="get" action="{% url 'User:packages' %}">
+                <div class="row">
+                    <div class="col-md-3">
+                        <div class="form-group">
+                            <label><i class="fa fa-calendar"></i> Check In</label>
+                            <input type="date" name="check_in" class="form-control" required>
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="form-group">
+                            <label><i class="fa fa-calendar"></i> Check Out</label>
+                            <input type="date" name="check_out" class="form-control" required>
+                        </div>
+                    </div>
+                    <div class="col-md-2">
+                        <div class="form-group">
+                            <label><i class="fa fa-users"></i> Guests</label>
+                            <select name="guests" class="form-control">
+                                <option value="1">1 Guest</option>
+                                <option value="2">2 Guests</option>
+                                <option value="3">3 Guests</option>
+                                <option value="4">4 Guests</option>
+                                <option value="5">5+ Guests</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="col-md-2">
+                        <div class="form-group">
+                            <label><i class="fa fa-building"></i> Package Type</label>
+                            <select name="type" class="form-control">
+                                <option value="all">All Types</option>
+                                <option value="daycation">Daycation</option>
+                                <option value="staycation">Staycation</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="col-md-2">
+                        <button type="submit" class="btn btn-primary btn-block search-btn">
+                            <i class="fa fa-search"></i> Search
+                        </button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</section> 

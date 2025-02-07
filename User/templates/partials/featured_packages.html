@@ -1,0 +1,42 @@
+{% load static %}
+<section class="featured-packages">
+    <div class="container">
+        <div class="section-title text-center">
+            <h2>Featured Packages</h2>
+            <p>Discover our most popular vacation experiences</p>
+        </div>
+        <div class="row">
+            {% for package in featured_packages %}
+            <div class="col-md-4 mb-4">
+                <div class="package-card">
+                    <div class="package-thumb">
+                        <img src="{{ package.image.url }}" alt="{{ package.name }}">
+                        <div class="package-type">{{ package.get_type_display }}</div>
+                        <div class="package-price">
+                            <span>${{ package.price }}</span>
+                            {% if package.type == 'staycation' %}
+                            <small>/night</small>
+                            {% else %}
+                            <small>/day</small>
+                            {% endif %}
+                        </div>
+                    </div>
+                    <div class="package-content">
+                        <h3>{{ package.name }}</h3>
+                        <div class="package-meta">
+                            <span><i class="fa fa-map-marker"></i> {{ package.location }}</span>
+                            <span><i class="fa fa-users"></i> {{ package.capacity }} Guests</span>
+                        </div>
+                        <p>{{ package.description|truncatewords:15 }}</p>
+                        <a href="{% url 'User:package_detail' package.id %}" class="btn btn-primary btn-block">View Details</a>
+                    </div>
+                </div>
+            </div>
+            {% empty %}
+            <div class="col-12 text-center">
+                <p>No featured packages available at the moment.</p>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+</section> 

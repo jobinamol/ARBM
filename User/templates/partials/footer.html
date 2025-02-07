@@ -1,0 +1,78 @@
+{% load static %}
+<footer class="footer">
+    <div class="footer-top">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-4 col-md-6">
+                    <div class="footer-widget">
+                        <div class="footer-logo">
+                            <img src="{% static 'img/logo.png' %}" alt="AI Resort" class="img-fluid">
+                        </div>
+                        <p>Experience luxury and comfort with our AI-powered resort booking platform. We make your vacation planning seamless and personalized.</p>
+                        <div class="social-links">
+                            <a href="#"><i class="fa fa-facebook"></i></a>
+                            <a href="#"><i class="fa fa-twitter"></i></a>
+                            <a href="#"><i class="fa fa-instagram"></i></a>
+                            <a href="#"><i class="fa fa-linkedin"></i></a>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-2 col-md-6">
+                    <div class="footer-widget">
+                        <h4>Quick Links</h4>
+                        <ul class="footer-links">
+                            <li><a href="{% url 'User:index' %}">Home</a></li>
+                            <li><a href="{% url 'User:packages' %}">Packages</a></li>
+                            <li><a href="{% url 'User:about' %}">About Us</a></li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="col-lg-3 col-md-6">
+                    <div class="footer-widget">
+                        <h4>Our Services</h4>
+                        <ul class="footer-links">
+                            <li><a href="{% url 'User:daycation' %}">Daycation Packages</a></li>
+                            <li><a href="{% url 'User:staycation' %}">Staycation Packages</a></li>
+                            <li><a href="#">Special Offers</a></li>
+                            <li><a href="#">Group Bookings</a></li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="col-lg-3 col-md-6">
+                    <div class="footer-widget">
+                        <h4>Contact Info</h4>
+                        <ul class="footer-contact">
+                            <li>
+                                <i class="fa fa-map-marker"></i>
+                                123 Resort Street, Vacation City, VC 12345
+                            </li>
+                            <li>
+                                <i class="fa fa-phone"></i>
+                                <a href="tel:+1234567890">+1 (234) 567-890</a>
+                            </li>
+                            <li>
+                                <i class="fa fa-envelope"></i>
+                                <a href="mailto:info@airesort.com">info@airesort.com</a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="footer-bottom">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-6">
+                    <p>&copy; {% now "Y" %} AI Resort. All rights reserved.</p>
+                </div>
+                <div class="col-md-6">
+                    <ul class="footer-bottom-links">
+                        <li><a href="#">Privacy Policy</a></li>
+                        <li><a href="#">Terms & Conditions</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</footer> 

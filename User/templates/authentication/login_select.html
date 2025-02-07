@@ -1,0 +1,103 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Choose Login Type - QuantumStay AI{% endblock %}
+
+{% block content %}
+<section class="auth-section">
+    <div class="neural-bg"></div>
+    <!-- Animated Background -->
+    <div class="neural-particles"></div>
+    
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-md-10">
+                <div class="auth-selection-box glass-morphism" data-aos="fade-up">
+                    <!-- Logo and Title -->
+                    <div class="text-center mb-5">
+                        <div class="quantum-logo mb-4">
+                            <i class="fas fa-brain glow-icon"></i>
+                            <span class="logo-text">QuantumStay AI</span>
+                        </div>
+                        <h2 class="auth-title">Welcome Back</h2>
+                        <p class="auth-subtitle">Choose your login type to continue your journey</p>
+                    </div>
+                    
+                    <div class="row g-4">
+                        <!-- Guest Login Option -->
+                        <div class="col-md-6">
+                            <div class="login-card guest-card" onclick="window.location='{% url 'User:guest_login' %}'">
+                                <div class="card-glow"></div>
+                                <div class="option-icon-wrapper">
+                                    <div class="option-icon">
+                                        <i class="fas fa-user"></i>
+                                    </div>
+                                </div>
+                                <h3>Guest Portal</h3>
+                                <p>For travelers and vacation seekers</p>
+                                <div class="features-list">
+                                    <div class="feature-item">
+                                        <i class="fas fa-check-circle"></i>
+                                        <span>Smart Bookings</span>
+                                    </div>
+                                    <div class="feature-item">
+                                        <i class="fas fa-check-circle"></i>
+                                        <span>AI Recommendations</span>
+                                    </div>
+                                    <div class="feature-item">
+                                        <i class="fas fa-check-circle"></i>
+                                        <span>24/7 Concierge</span>
+                                    </div>
+                                </div>
+                                <div class="hover-effect">
+                                    <span class="btn-text">Login as Guest</span>
+                                    <i class="fas fa-arrow-right"></i>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- Resort Owner Login Option -->
+                        <div class="col-md-6">
+                            <div class="login-card resort-card" onclick="window.location='{% url 'User:resort_login' %}'">
+                                <div class="card-glow"></div>
+                                <div class="option-icon-wrapper">
+                                    <div class="option-icon">
+                                        <i class="fas fa-hotel"></i>
+                                    </div>
+                                </div>
+                                <h3>Resort Dashboard</h3>
+                                <p>For property managers and owners</p>
+                                <div class="features-list">
+                                    <div class="feature-item">
+                                        <i class="fas fa-check-circle"></i>
+                                        <span>Property Management</span>
+                                    </div>
+                                    <div class="feature-item">
+                                        <i class="fas fa-check-circle"></i>
+                                        <span>Analytics Dashboard</span>
+                                    </div>
+                                    <div class="feature-item">
+                                        <i class="fas fa-check-circle"></i>
+                                        <span>Booking Control</span>
+                                    </div>
+                                </div>
+                                <div class="hover-effect">
+                                    <span class="btn-text">Login as Resort Owner</span>
+                                    <i class="fas fa-arrow-right"></i>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="auth-footer">
+                        <p>Don't have an account?</p>
+                        <a href="{% url 'User:register_select' %}" class="btn btn-quantum-outline">
+                            Create New Account <i class="fas fa-user-plus ms-2"></i>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %} 

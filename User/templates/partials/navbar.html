@@ -1,0 +1,76 @@
+{% load static %}
+<nav class="navbar navbar-expand-lg fixed-top">
+    <div class="container">
+        <a class="navbar-brand" href="{% url 'User:index' %}">
+            <div class="brand-wrapper">
+                <div class="brand-icon">
+                    <i class="fas fa-brain glow-text"></i>
+                </div>
+                <div class="brand-text">
+                    <span class="quantum">QUANTUM</span>
+                    <span class="stay">STAY</span>
+                    <span class="ai">AI</span>
+                </div>
+            </div>
+        </a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav">
+            <i class="fas fa-network-wired glow-text"></i>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav ml-auto">
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'User:index' %}">
+                        <i class="fas fa-home-alt"></i> Dashboard
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'User:daycation' %}">
+                        <i class="fas fa-sun"></i> Daycation AI
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'User:staycation' %}">
+                        <i class="fas fa-hotel"></i> Staycation AI
+                    </a>
+                </li>
+                <li class="nav-item {% if request.resolver_match.url_name == 'smart-concierge' %}active{% endif %}">
+                    <a class="nav-link" href="{% url 'User:smart-concierge' %}">
+                        <i class="fas fa-robot"></i> Smart Concierge
+                    </a>
+                </li>
+            </ul>
+            <div class="nav-buttons">
+                {% if user.is_authenticated %}
+                    <div class="user-profile">
+                        <div class="ai-status">
+                            <div class="ai-dot pulse"></div>
+                            <span>AI Active</span>
+                        </div>
+                        <div class="dropdown">
+                            <button class="btn btn-neural dropdown-toggle" type="button" id="userDropdown" data-toggle="dropdown">
+                                <i class="fas fa-user-circle"></i>
+                                <span>{{ user.username }}</span>
+                            </button>
+                            <div class="dropdown-menu">
+                                <a class="dropdown-item" href="{% url 'User:profile' %}">
+                                    <i class="fas fa-user"></i> Profile
+                                </a>
+                                <a class="dropdown-item" href="{% url 'User:bookings' %}">
+                                    <i class="fas fa-calendar-check"></i> My Bookings
+                                </a>
+                                <div class="dropdown-divider"></div>
+                                <a class="dropdown-item" href="{% url 'User:logout' %}">
+                                    <i class="fas fa-sign-out-alt"></i> Logout
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                {% else %}
+                    <a href="{% url 'User:login' %}" class="btn btn-neural">
+                        <i class="fas fa-power-off"></i> Initialize
+                    </a>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+</nav> 

@@ -1,0 +1,216 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Dashboard - QuantumStay AI{% endblock %}
+
+{% block content %}
+<div class="dashboard-container">
+    <!-- Sidebar Navigation -->
+    <div class="dashboard-sidebar">
+        <div class="sidebar-header">
+            <div class="user-profile-mini">
+                <div class="user-avatar">
+                    <i class="fas fa-user-circle"></i>
+                </div>
+                <div class="user-info">
+                    <h6>{{ user.get_full_name }}</h6>
+                    <span class="user-status">
+                        <i class="fas fa-circle"></i> Premium Member
+                    </span>
+                </div>
+            </div>
+        </div>
+        
+        <nav class="sidebar-nav">
+            <a href="#" class="nav-item active">
+                <i class="fas fa-th-large"></i>
+                <span>Overview</span>
+            </a>
+            <a href="{% url 'User:bookings' %}" class="nav-item">
+                <i class="fas fa-calendar-check"></i>
+                <span>My Bookings</span>
+            </a>
+            <a href="#" class="nav-item">
+                <i class="fas fa-heart"></i>
+                <span>Wishlist</span>
+                <span class="badge">3</span>
+            </a>
+            <a href="#" class="nav-item">
+                <i class="fas fa-history"></i>
+                <span>History</span>
+            </a>
+            <a href="#" class="nav-item">
+                <i class="fas fa-wallet"></i>
+                <span>Payments</span>
+            </a>
+            <a href="#" class="nav-item">
+                <i class="fas fa-cog"></i>
+                <span>Settings</span>
+            </a>
+        </nav>
+    </div>
+
+    <!-- Main Content Area -->
+    <div class="dashboard-main">
+        <!-- Welcome Section -->
+        <div class="welcome-section">
+            <div class="welcome-content">
+                <h1>Welcome back, {{ user.first_name }}!</h1>
+                <p>Your AI travel assistant is ready to help you plan your next adventure.</p>
+            </div>
+            <div class="quick-actions">
+                <button class="btn btn-quantum">
+                    <i class="fas fa-search"></i> Find Package
+                </button>
+                <button class="btn btn-quantum-outline">
+                    <i class="fas fa-calendar-plus"></i> New Booking
+                </button>
+            </div>
+        </div>
+
+        <!-- Stats Cards -->
+        <div class="stats-grid">
+            <div class="stat-card">
+                <div class="stat-icon">
+                    <i class="fas fa-calendar-check"></i>
+                </div>
+                <div class="stat-info">
+                    <h3>{{ upcoming_bookings_count }}</h3>
+                    <p>Upcoming Stays</p>
+                </div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-icon">
+                    <i class="fas fa-heart"></i>
+                </div>
+                <div class="stat-info">
+                    <h3>{{ wishlist_count }}</h3>
+                    <p>Saved Places</p>
+                </div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-icon">
+                    <i class="fas fa-award"></i>
+                </div>
+                <div class="stat-info">
+                    <h3>{{ reward_points }}</h3>
+                    <p>Reward Points</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- AI Recommendations -->
+        <div class="section-header">
+            <h2>Recommended for You</h2>
+            <p>AI-powered suggestions based on your preferences</p>
+        </div>
+        <div class="recommendations-grid">
+            {% for package in recommended_packages %}
+            <div class="package-card">
+                <div class="package-image">
+                    <img src="{{ package.image.url }}" alt="{{ package.name }}">
+                    <div class="package-badge">
+                        <i class="fas fa-star"></i> {{ package.rating }}
+                    </div>
+                </div>
+                <div class="package-info">
+                    <h3>{{ package.name }}</h3>
+                    <p>{{ package.description|truncatechars:100 }}</p>
+                    <div class="package-meta">
+                        <span class="price">₹{{ package.price }}</span>
+                        <button class="btn btn-sm btn-quantum">View Details</button>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+
+        <!-- Recent Bookings -->
+        <div class="section-header">
+            <h2>Recent Bookings</h2>
+            <a href="{% url 'User:bookings' %}" class="view-all">View All</a>
+        </div>
+        <div class="bookings-table">
+            <table>
+                <thead>
+                    <tr>
+                        <th>Booking ID</th>
+                        <th>Resort</th>
+                        <th>Check-in</th>
+                        <th>Status</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for booking in recent_bookings %}
+                    <tr>
+                        <td>#{{ booking.id }}</td>
+                        <td>{{ booking.resort_name }}</td>
+                        <td>{{ booking.check_in_date }}</td>
+                        <td>
+                            <span class="status-badge {{ booking.status|lower }}">
+                                {{ booking.status }}
+                            </span>
+                        </td>
+                        <td>
+                            <button class="btn btn-sm btn-outline-quantum">
+                                View Details
+                            </button>
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <!-- Right Sidebar -->
+    <div class="dashboard-right">
+        <!-- AI Assistant Widget -->
+        <div class="ai-assistant-widget">
+            <div class="ai-header">
+                <i class="fas fa-robot"></i>
+                <h3>AI Assistant</h3>
+            </div>
+            <div class="ai-body">
+                <p>How can I help you today?</p>
+                <button class="btn btn-quantum w-100">
+                    <i class="fas fa-comments"></i> Start Chat
+                </button>
+            </div>
+        </div>
+
+        <!-- Weather Widget -->
+        <div class="weather-widget">
+            <div class="weather-header">
+                <h3>Local Weather</h3>
+                <span>{{ current_location }}</span>
+            </div>
+            <div class="weather-body">
+                <i class="fas fa-sun"></i>
+                <h2>{{ temperature }}°C</h2>
+                <p>{{ weather_description }}</p>
+            </div>
+        </div>
+
+        <!-- Upcoming Events -->
+        <div class="events-widget">
+            <h3>Upcoming Events</h3>
+            <div class="event-list">
+                {% for event in upcoming_events %}
+                <div class="event-item">
+                    <div class="event-date">
+                        <span class="day">{{ event.date|date:"d" }}</span>
+                        <span class="month">{{ event.date|date:"M" }}</span>
+                    </div>
+                    <div class="event-info">
+                        <h4>{{ event.name }}</h4>
+                        <p>{{ event.location }}</p>
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %} 

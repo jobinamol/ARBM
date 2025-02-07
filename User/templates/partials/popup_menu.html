@@ -1,0 +1,31 @@
+<div class="popup-menu" id="popupMenu">
+    <div class="popup-menu-content">
+        <div class="popup-header">
+            <img src="{% static 'img/logo.png' %}" alt="LuxAI Resorts" class="popup-logo">
+            <button class="close-menu" onclick="toggleMenu()">×</button>
+        </div>
+        <div class="popup-body">
+            <nav class="popup-nav">
+                <a href="{% url 'User:index' %}" class="menu-item">
+                    <i class="fas fa-home"></i> Home
+                </a>
+                <a href="{% url 'User:packages' %}" class="menu-item">
+                    <i class="fas fa-gem"></i> Luxury Packages
+                </a>
+                <a href="{% url 'User:about' %}" class="menu-item">
+                    <i class="fas fa-info-circle"></i> About Us
+                </a>
+                <a href="{% url 'User:contact' %}" class="menu-item">
+                    <i class="fas fa-envelope"></i> Contact
+                </a>
+            </nav>
+            <div class="popup-footer">
+                <div class="social-links">
+                    <a href="#"><i class="fab fa-facebook"></i></a>
+                    <a href="#"><i class="fab fa-instagram"></i></a>
+                    <a href="#"><i class="fab fa-twitter"></i></a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div> 

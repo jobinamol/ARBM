@@ -1,0 +1,46 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Resort Registration{% endblock %}
+
+{% block content %}
+<section class="auth-section">
+    <div class="neural-bg"></div>
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-md-8">
+                <div class="auth-box" data-aos="fade-up">
+                    <div class="auth-header">
+                        <div class="auth-icon">
+                            <i class="fas fa-hotel"></i>
+                        </div>
+                        <h2>Resort Registration</h2>
+                        <p>Join our AI-powered resort network</p>
+                    </div>
+
+                    <form method="post" class="auth-form">
+                        {% csrf_token %}
+                        {% if messages %}
+                            {% for message in messages %}
+                                <div class="alert alert-{{ message.tags }}">
+                                    {{ message }}
+                                </div>
+                            {% endfor %}
+                        {% endif %}
+                        
+                        {{ form.as_p }}
+                        
+                        <button type="submit" class="btn btn-quantum btn-block">
+                            <i class="fas fa-plus-circle"></i> Register Resort
+                        </button>
+                    </form>
+
+                    <div class="auth-footer">
+                        <p>Already registered? <a href="{% url 'User:resort_login' %}">Login here</a></p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %} 
