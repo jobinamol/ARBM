@@ -1,6 +1,10 @@
 {% extends 'base.html' %}
 {% load static %}
 
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'css/auth.css' %}">
+{% endblock %}
+
 {% block title %}Register{% endblock %}
 
 {% block content %}
@@ -9,19 +13,68 @@
         <div class="row justify-content-center">
             <div class="col-md-6">
                 <div class="auth-box">
-                    <h2>Register</h2>
-                    <form method="post">
+                    <h2>Create Account</h2>
+                    {% if messages %}
+                        {% for message in messages %}
+                            <div class="alert alert-{{ message.tags }}">
+                                {{ message }}
+                            </div>
+                        {% endfor %}
+                    {% endif %}
+                    
+                    <form method="post" class="needs-validation" novalidate>
                         {% csrf_token %}
-                        {% if messages %}
-                            {% for message in messages %}
-                                <div class="alert alert-{{ message.tags }}">
-                                    {{ message }}
+                        
+                        <div class="form-group">
+                            <label for="email">Email</label>
+                            {{ form.email }}
+                        </div>
+                        
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label for="first_name">First Name</label>
+                                    {{ form.first_name }}
                                 </div>
-                            {% endfor %}
-                        {% endif %}
-                        {{ form.as_p }}
-                        <button type="submit" class="btn btn-primary btn-block">Register</button>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label for="last_name">Last Name</label>
+                                    {{ form.last_name }}
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="phone_number">Phone Number</label>
+                            {{ form.phone_number }}
+                        </div>
+
+                        <!-- Account Type Selection -->
+                        <div class="form-group">
+                            <label for="account_type">Account Type</label>
+                            <select name="account_type" id="account_type" class="form-control" required>
+                                <option value="" selected disabled>-- Select Account Type --</option>
+                                <option value="guest">Guest</option>
+                                <option value="resort_staff">Resort Staff</option>
+                            </select>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="password1">Password</label>
+                            {{ form.password1 }}
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="password2">Confirm Password</label>
+                            {{ form.password2 }}
+                        </div>
+                        
+                        <button type="submit" class="btn btn-quantum">
+                            <i class="fas fa-user-plus"></i> Create Account
+                        </button>
                     </form>
+                    
                     <div class="auth-footer">
                         <p>Already have an account? <a href="{% url 'User:login' %}">Login here</a></p>
                     </div>
@@ -30,4 +83,31 @@
         </div>
     </div>
 </section>
-{% endblock %} 
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    // Password strength indicator
+    const password = document.querySelector('input[name="password1"]');
+    password.addEventListener('input', function() {
+        // Add password strength logic here
+    });
+
+    // Form validation
+    const form = document.querySelector('form');
+    form.addEventListener('submit', function(event) {
+        const accountType = document.querySelector('select[name="account_type"]');
+        if (!accountType.value) {
+            event.preventDefault();
+            event.stopPropagation();
+            alert("Please select an account type.");
+        }
+
+        if (!form.checkValidity()) {
+            event.preventDefault();
+            event.stopPropagation();
+        }
+        form.classList.add('was-validated');
+    });
+});
+</script>
+{% endblock %}

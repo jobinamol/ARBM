@@ -1,0 +1,25 @@
+# Django and related packages
+Django>=4.2.0
+python-dotenv>=1.0.0
+
+# Database
+mysqlclient>=2.1.1
+PyMySQL>=1.0.2
+
+# Web server
+gunicorn>=20.1.0
+
+# Image processing
+Pillow>=9.5.0
+
+# Security
+django-cors-headers>=4.0.0
+
+# Development tools
+django-debug-toolbar>=4.1.0
+
+# Deployment
+whitenoise>=6.4.0
+
+# Email
+django-ses>=3.5.0 

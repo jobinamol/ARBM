@@ -3,8 +3,12 @@ from django.contrib.auth.decorators import login_required
 from django.contrib.auth import login, logout, authenticate
 from django.contrib import messages
 from django.core.paginator import Paginator
-from .models import Package, Feature, User
-from .forms import UserLoginForm, UserRegistrationForm
+from .models import *
+from .forms import UserLoginForm, UserRegistrationForm, OTPVerificationForm
+from .utils import generate_otp, send_otp_email
+from django.contrib.auth.forms import AuthenticationForm
+from django.contrib.auth import authenticate, login as auth_login
+from django.shortcuts import redirect
 
 # Create your views here.
 
@@ -15,6 +19,13 @@ def index(request):
         'featured_packages': featured_packages,
     }
     return render(request, 'index.html', context)
+def resortindex(request):
+    # Get featured packages for homepage
+    featured_packages = Package.objects.filter(is_featured=True)[:6]
+    context = {
+        'featured_packages': featured_packages,
+    }
+    return render(request, 'resortindex.html', context)
 
 def packages(request):
     # Get filters from request
@@ -211,15 +222,110 @@ def register(request):
     if request.method == 'POST':
         form = UserRegistrationForm(request.POST)
         if form.is_valid():
+            # Create inactive user
             user = form.save(commit=False)
-            user.username = form.cleaned_data['email']  # Use email as username
+            user.is_active = False
+            user.username = form.cleaned_data['email']
             user.save()
-            login(request, user)
-            messages.success(request, 'Registration successful!')
-            return redirect('User:index')
+
+            # Create user profile
+            phone_number = form.cleaned_data['phone_number']
+            UserProfile.objects.create(
+                user=user,
+                phone_number=phone_number
+            )
+
+            # Generate and save OTP
+            otp = generate_otp()
+            OTP.objects.create(
+                user=user,
+                otp=otp,
+                purpose='email'
+            )
+
+            # Send OTP email
+            send_otp_email(user, otp)
+
+            # Store user ID in session
+            request.session['registration_user_id'] = user.id
+            messages.success(request, 'Please check your email for OTP verification.')
+            return redirect('User:verify_otp')
     else:
         form = UserRegistrationForm()
     return render(request, 'authentication/register.html', {'form': form})
+
+def verify_otp(request):
+    user_id = request.session.get('registration_user_id')
+    if not user_id:
+        messages.error(request, 'Invalid session. Please register again.')
+        return redirect('User:register')
+
+    if request.method == 'POST':
+        form = OTPVerificationForm(request.POST)
+        if form.is_valid():
+            otp = form.cleaned_data['otp']
+            try:
+                user = User.objects.get(id=user_id)
+                otp_obj = OTP.objects.filter(
+                    user=user,
+                    purpose='email',
+                    is_verified=False
+                ).latest('created_at')
+
+                if otp_obj.is_expired():
+                    messages.error(request, 'OTP has expired. Please request a new one.')
+                    return redirect('User:verify_otp')
+
+                if otp_obj.otp == otp:
+                    # Activate user
+                    user.is_active = True
+                    user.save()
+
+                    # Update profile
+                    profile = user.userprofile
+                    profile.is_email_verified = True
+                    profile.save()
+
+                    # Mark OTP as verified
+                    otp_obj.is_verified = True
+                    otp_obj.save()
+
+                    # Clear session
+                    del request.session['registration_user_id']
+
+                    messages.success(request, 'Email verified successfully. Please login.')
+                    return redirect('User:login')
+                else:
+                    messages.error(request, 'Invalid OTP.')
+            except (User.DoesNotExist, OTP.DoesNotExist):
+                messages.error(request, 'Invalid OTP verification request.')
+                return redirect('User:register')
+    else:
+        form = OTPVerificationForm()
+
+    return render(request, 'authentication/verify_otp.html', {'form': form})
+
+def resend_otp(request):
+    user_id = request.session.get('registration_user_id')
+    if not user_id:
+        messages.error(request, 'Invalid session. Please register again.')
+        return redirect('User:register')
+
+    try:
+        user = User.objects.get(id=user_id)
+        otp = generate_otp()
+        OTP.objects.create(
+            user=user,
+            otp=otp,
+            purpose='email'
+        )
+        send_otp_email(user, otp)
+        messages.success(request, 'New OTP has been sent to your email.')
+    except User.DoesNotExist:
+        messages.error(request, 'Invalid user. Please register again.')
+        return redirect('User:register')
+
+    return redirect('User:verify_otp')
 
 def logout_view(request):
     logout(request)

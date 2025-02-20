@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <style>
+        .email-container {
+            max-width: 600px;
+            margin: 0 auto;
+            font-family: 'Arial', sans-serif;
+            background: #1a1a1a;
+            color: #ffffff;
+        }
+        .header {
+            background: linear-gradient(45deg, #00bcd4, #007bff);
+            padding: 30px;
+            text-align: center;
+            border-radius: 10px 10px 0 0;
+        }
+        .content {
+            padding: 30px;
+            background: #2a2a2a;
+            border-radius: 0 0 10px 10px;
+        }
+        .otp-code {
+            font-size: 32px;
+            font-weight: bold;
+            color: #00bcd4;
+            text-align: center;
+            padding: 20px;
+            background: #1a1a1a;
+            border-radius: 10px;
+            margin: 20px 0;
+            letter-spacing: 5px;
+        }
+        .footer {
+            text-align: center;
+            color: #888;
+            font-size: 12px;
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body style="background: #000000; margin: 0; padding: 20px;">
+    <div class="email-container">
+        <div class="header">
+            <h1>QUANTUM STAY AI</h1>
+        </div>
+        <div class="content">
+            <h2>Welcome to the Future of Hospitality</h2>
+            <p>Hello {{ username }},</p>
+            <p>Your verification code is:</p>
+            <div class="otp-code">
+                {{ otp }}
+            </div>
+            <p>This code will expire in 10 minutes.</p>
+            <p>If you didn't request this verification, please ignore this email.</p>
+            <div class="footer">
+                <p>© 2024 QUANTUM STAY AI. All rights reserved.</p>
+            </div>
+        </div>
+    </div>
+</body>
+</html> 

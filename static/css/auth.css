@@ -1,0 +1,160 @@
+.auth-section {
+    min-height: 100vh;
+    background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
+    padding: 80px 0;
+    position: relative;
+    overflow: hidden;
+}
+
+.auth-section::before {
+    content: '';
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    background: url('../images/neural-pattern.svg') repeat;
+    opacity: 0.05;
+    animation: float 20s infinite linear;
+}
+
+.auth-box {
+    background: rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(10px);
+    border-radius: 20px;
+    padding: 40px;
+    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.2);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    color: white;
+    transform: translateY(20px);
+    opacity: 0;
+    animation: slideUp 0.6s ease forwards;
+}
+
+.auth-box h2 {
+    color: white;
+    text-align: center;
+    margin-bottom: 30px;
+    font-weight: 600;
+    font-size: 2rem;
+    background: linear-gradient(45deg, #4f46e5, #06b6d4);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+.neural-input {
+    background: rgba(255, 255, 255, 0.05) !important;
+    border: 1px solid rgba(255, 255, 255, 0.1) !important;
+    color: white !important;
+    border-radius: 10px !important;
+    padding: 12px 20px !important;
+    margin-bottom: 20px !important;
+    transition: all 0.3s ease !important;
+}
+
+.neural-input:focus {
+    background: rgba(255, 255, 255, 0.1) !important;
+    border-color: rgba(79, 70, 229, 0.5) !important;
+    box-shadow: 0 0 0 2px rgba(79, 70, 229, 0.25) !important;
+}
+
+.neural-input::placeholder {
+    color: rgba(255, 255, 255, 0.5);
+}
+
+.btn-quantum {
+    background: linear-gradient(45deg, #4f46e5, #06b6d4);
+    border: none;
+    color: white;
+    padding: 12px 30px;
+    border-radius: 50px;
+    font-weight: 500;
+    letter-spacing: 0.5px;
+    position: relative;
+    overflow: hidden;
+    transition: all 0.3s ease;
+    width: 100%;
+    margin-top: 20px;
+}
+
+.btn-quantum:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 10px 20px rgba(79, 70, 229, 0.3);
+}
+
+.btn-quantum::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+    transition: 0.5s;
+}
+
+.btn-quantum:hover::before {
+    left: 100%;
+}
+
+.auth-footer {
+    text-align: center;
+    margin-top: 25px;
+    color: rgba(255, 255, 255, 0.7);
+}
+
+.auth-footer a {
+    color: #06b6d4;
+    text-decoration: none;
+    transition: color 0.3s ease;
+}
+
+.auth-footer a:hover {
+    color: #4f46e5;
+}
+
+@keyframes slideUp {
+    to {
+        transform: translateY(0);
+        opacity: 1;
+    }
+}
+
+@keyframes float {
+    0% { transform: translateY(0px); }
+    50% { transform: translateY(-20px); }
+    100% { transform: translateY(0px); }
+}
+
+.alert {
+    background: rgba(255, 255, 255, 0.1);
+    border: none;
+    color: white;
+    border-radius: 10px;
+    margin-bottom: 20px;
+    animation: fadeIn 0.5s ease;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(-10px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+/* OTP Input Styling */
+.otp-input-group {
+    display: flex;
+    gap: 10px;
+    justify-content: center;
+    margin: 30px 0;
+}
+
+.otp-input {
+    width: 50px !important;
+    height: 50px !important;
+    text-align: center;
+    font-size: 1.5rem;
+    border-radius: 10px !important;
+    background: rgba(255, 255, 255, 0.05) !important;
+    border: 1px solid rgba(255, 255, 255, 0.1) !important;
+    color: white !important;
+} 

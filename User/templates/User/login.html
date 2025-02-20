@@ -1,0 +1,244 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+<div class="login-container">
+    <div class="neural-background"></div>
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-md-5">
+                <div class="login-card">
+                    <div class="card-body p-4">
+                        <div class="text-center mb-4">
+                            <div class="brain-container">
+                                <i class="fas fa-brain login-icon"></i>
+                                <div class="neural-rings"></div>
+                            </div>
+                            <h2 class="mt-4 quantum-text">Initialize AI Session</h2>
+                            <p class="text-muted">Enter your credentials to connect</p>
+                        </div>
+                        <form method="post" class="login-form">
+                            {% csrf_token %}
+                            <div class="form-group mb-4">
+                                <div class="neural-input">
+                                    <div class="icon-container">
+                                        <i class="fas fa-user"></i>
+                                    </div>
+                                    {{ form.username }}
+                                    <div class="neural-line"></div>
+                                </div>
+                            </div>
+                            <div class="form-group mb-4">
+                                <div class="neural-input">
+                                    <div class="icon-container">
+                                        <i class="fas fa-lock"></i>
+                                    </div>
+                                    {{ form.password }}
+                                    <div class="neural-line"></div>
+                                </div>
+                            </div>
+                            <button type="submit" class="btn-initialize w-100 mb-4">
+                                <span class="btn-content">
+                                    <i class="fas fa-power-off me-2"></i>
+                                    <span>Initialize Session</span>
+                                </span>
+                            </button>
+                            <div class="text-center mt-4">
+                                <p class="mb-2 text-muted">Don't have an account?</p>
+                                <a href="{% url 'registration' %}" class="register-link">
+                                    <i class="fas fa-user-plus me-2"></i>Register for AI Access
+                                </a>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<style>
+.login-container {
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    background: #0a0a0a;
+    position: relative;
+    overflow: hidden;
+}
+
+.neural-background {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: 
+        radial-gradient(circle at 20% 20%, rgba(0, 123, 255, 0.1) 0%, transparent 50%),
+        radial-gradient(circle at 80% 80%, rgba(0, 188, 212, 0.1) 0%, transparent 50%);
+    filter: blur(80px);
+    z-index: 0;
+}
+
+.login-card {
+    background: rgba(255, 255, 255, 0.03);
+    backdrop-filter: blur(20px);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 20px;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4);
+    position: relative;
+    z-index: 1;
+    color: white;
+}
+
+.brain-container {
+    position: relative;
+    width: 80px;
+    height: 80px;
+    margin: 0 auto;
+}
+
+.login-icon {
+    font-size: 3rem;
+    color: #00bcd4;
+    position: relative;
+    z-index: 2;
+    animation: pulse 2s infinite;
+}
+
+.neural-rings {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 100%;
+    height: 100%;
+    border: 2px solid rgba(0, 188, 212, 0.3);
+    border-radius: 50%;
+    animation: expand 2s infinite;
+}
+
+.neural-rings::after {
+    content: '';
+    position: absolute;
+    top: -5px;
+    left: -5px;
+    right: -5px;
+    bottom: -5px;
+    border: 2px solid rgba(0, 123, 255, 0.3);
+    border-radius: 50%;
+    animation: expand 2s infinite 0.5s;
+}
+
+.quantum-text {
+    background: linear-gradient(45deg, #00bcd4, #007bff);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    font-weight: 600;
+}
+
+.neural-input {
+    position: relative;
+    background: rgba(255, 255, 255, 0.05);
+    border-radius: 10px;
+    padding: 5px;
+    margin-bottom: 1rem;
+}
+
+.neural-input .icon-container {
+    position: absolute;
+    left: 15px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: #00bcd4;
+}
+
+.neural-input input {
+    background: transparent !important;
+    border: none;
+    color: white !important;
+    padding: 15px 15px 15px 45px;
+    width: 100%;
+    outline: none;
+}
+
+.neural-input input::placeholder {
+    color: rgba(255, 255, 255, 0.5);
+}
+
+.neural-line {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    height: 2px;
+    width: 0;
+    background: linear-gradient(90deg, #00bcd4, #007bff);
+    transition: width 0.3s ease;
+}
+
+.neural-input:focus-within .neural-line {
+    width: 100%;
+}
+
+.btn-initialize {
+    background: linear-gradient(45deg, #00bcd4, #007bff);
+    border: none;
+    padding: 12px;
+    border-radius: 10px;
+    color: white;
+    font-weight: 500;
+    letter-spacing: 0.5px;
+    position: relative;
+    overflow: hidden;
+    transition: all 0.3s ease;
+}
+
+.btn-initialize:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba(0, 188, 212, 0.4);
+}
+
+.btn-initialize .btn-content {
+    position: relative;
+    z-index: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+}
+
+.register-link {
+    color: #00bcd4;
+    text-decoration: none;
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+    transition: all 0.3s ease;
+}
+
+.register-link:hover {
+    color: #007bff;
+    text-shadow: 0 0 10px rgba(0, 123, 255, 0.5);
+}
+
+@keyframes pulse {
+    0% { transform: scale(1); }
+    50% { transform: scale(1.1); }
+    100% { transform: scale(1); }
+}
+
+@keyframes expand {
+    0% { transform: translate(-50%, -50%) scale(0.8); opacity: 1; }
+    100% { transform: translate(-50%, -50%) scale(1.2); opacity: 0; }
+}
+
+@media (max-width: 768px) {
+    .login-card {
+        margin: 1rem;
+    }
+    .card-body {
+        padding: 1.5rem !important;
+    }
+}
+</style>
+{% endblock %} 

@@ -21,10 +21,11 @@ from django.conf.urls.static import static
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('', include('User.urls')),  # Include User app URLs
+    path('', include('User.urls')),  # User app URLs
+    path('resort/', include('resort.urls')),  # Resort app URLs
 ]
 
-# Serve media and static files during development
+# Serve static and media files during development
 if settings.DEBUG:
     urlpatterns += static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
     urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

@@ -34,7 +34,7 @@
                     </a>
                 </li>
                 <li class="nav-item {% if request.resolver_match.url_name == 'smart-concierge' %}active{% endif %}">
-                    <a class="nav-link" href="{% url 'User:smart-concierge' %}">
+                    <a class="nav-link" href="#">
                         <i class="fas fa-robot"></i> Smart Concierge
                     </a>
                 </li>
@@ -66,7 +66,7 @@
                         </div>
                     </div>
                 {% else %}
-                    <a href="{% url 'User:login' %}" class="btn btn-neural">
+                    <a href="{% url 'login' %}" class="btn btn-neural">
                         <i class="fas fa-power-off"></i> Initialize
                     </a>
                 {% endif %}

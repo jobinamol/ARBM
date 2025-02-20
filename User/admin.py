@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import Feature, Package, PackageImage
+from .models import *
 
 class PackageImageInline(admin.TabularInline):
     model = PackageImage
